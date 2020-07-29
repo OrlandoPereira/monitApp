@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/monitAppDefault.xhtml">
+        <ui:define name="content">
+            <div id="top" align="center">
+                <p:panel id="toggleable" header="Gerenciamento de Grupos" style="margin-bottom:20px">
+                    <h:form id="menu">
+                        <h:panelGrid columns="3" >
+                            <p:column> 
+                                <p:spacer/>
+                            </p:column>
+                            <p:column>
+                                <h:panelGrid columns="1" cellpadding="0px" cellspacing="0px" >
+                                    <p:column >
+                                        <p:commandLink action="/gestor/GrupoDeUsuario/index.jsf"   >
+                                            <p:graphicImage value="/icon/gpuser.png" onmouseover="aumenta(this)" 
+                                                            onmouseout="diminui(this)" />
+                                        </p:commandLink>
+                                    </p:column>
+                                    <p:column >
+                                        <div align="center">
+                                            <h4><p:outputLabel value="Grupo Usuário" /></h4>
+                                        </div>
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:spacer/>
+                            </p:column>
+                            <p:column>
+                                 <h:panelGrid columns="1" cellpadding="0px" cellspacing="0px" >
+                                    <p:column >
+                               <p:commandLink action="/gestor/GrupoDeEmpresa/index.jsf"  >
+                                    <h:graphicImage value="/icon/gpempresa.gif" onmouseover="aumenta(this)" 
+                                                            onmouseout="diminui(this)"  />
+                                </p:commandLink>
+                                    </p:column>
+                                    <p:column >
+                                        <div align="center">
+                                            <h4><p:outputLabel value="Cadastro Empresa" /></h4>
+                                        </div>
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:spacer/>
+                            </p:column>
+                            <p:column>
+                                <h:panelGrid columns="1" cellpadding="0px" cellspacing="0px" >
+                                    <p:column >
+                                        <p:commandLink  action="teste"  >
+                                    <h:graphicImage value="/icon/gpmail.png" onmouseover="aumenta(this)" 
+                                                            onmouseout="diminui(this)"  />
+                                </p:commandLink>
+                                    </p:column>
+                                    <p:column >
+                                        <div align="center">
+                                            <h4><p:outputLabel value="Grupo E-mail" /></h4>
+                                        </div>
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:spacer/>
+                            </p:column>
+                            <p:column>
+                                <h:panelGrid columns="1" cellpadding="0px" cellspacing="0px" >
+                                    <p:column >
+                                        <p:commandLink action="tes"  >
+                                    <h:graphicImage value="/icon/gpmsg.png" onmouseover="aumenta(this)" 
+                                                            onmouseout="diminui(this)"  />
+                                </p:commandLink>
+                                    </p:column>
+                                    <p:column >
+                                        <div align="center">
+                                            <h4><p:outputLabel value="Grupo celular" /></h4>
+                                        </div>
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:spacer/>
+                            </p:column>
+                        </h:panelGrid>
+                    </h:form>
+                </p:panel>
+
+            </div> 
+        </ui:define>
+    </ui:composition>
+</html>
+

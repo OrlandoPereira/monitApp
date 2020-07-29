@@ -1,0 +1,56 @@
+
+#bottom {
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}
+
+.center_content {
+
+}
+
+.menu
+{
+   background-color: lightgrey;  
+   font-size: 13px; width: 48px;
+   text-align: center; 
+}
+.ui-datatable .ui-datatable-data .even-row td{
+			background-color: gainsboro;
+		}
+
+.ui-datatable .ui-datatable-data .odd-row td{
+                    background-color: #7ecca9;
+		}
+.vermelho td{  
+    background-color: #EE4000;  
+}  
+.laranja td{  
+    background-color: darkorange;  
+}  
+.amarelo td{  
+    background-color: #f2df35;  
+}  
+.verde td{  
+    background-color: yellowgreen;  
+}  
+
+.panelBlack .ui-panel-titlebar {
+    background: black;
+    color:#CCCCCC;
+}
+
+/* Definição de estilos para linha de cabeçalho da tabela*/
+
+.cabecalho {
+
+   text-align: center;
+   font-weight: bold;
+   color: Snow;
+   background:  #000;
+
+}
+
+
+
+
+

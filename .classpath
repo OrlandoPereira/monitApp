@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="build/generated-sources/ap-source-output"/>
+	<classpathentry excluding="Main/" kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/java/Main"/>
+	<classpathentry kind="lib" path="build/web/WEB-INF/lib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="build/web/WEB-INF/lib/javax.faces.jar"/>
+	<classpathentry kind="lib" path="build/web/WEB-INF/lib/javax.persistence_2.1.0.v201304241213.jar"/>
+	<classpathentry kind="lib" path="build/web/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="build/web/WEB-INF/lib/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="build/web/WEB-INF/lib/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar"/>
+	<classpathentry kind="lib" path="build/web/WEB-INF/lib/primefaces-5.2.jar"/>
+	<classpathentry kind="lib" path="mail.jar"/>
+	<classpathentry kind="lib" path="primefaces-5.1.jar"/>
+	<classpathentry kind="lib" path="primefaces-5.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="output" path="build/web/WEB-INF/classes"/>
+</classpath>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<!--Informações de Servidor -->
+    <!--Informações de Disco -->
+    <div id="infosDisc">
+        <p:panel id="opnl" header="Informações de Disco" style="width:30%; height: 30%">
+            <h:form >
+                <p:dataList id="dtInf" value="#{infoServerBean.mostraInfoDisc}" var="inf">
+                    <h:outputText id="inf" value="#{inf.infoDisc}" />
+                </p:dataList> 
+                <!-- poll para atualizar as informações  automaticamente  -->
+                <p:poll interval="5" update="dtInf"/>
+            </h:form>
+        </p:panel>
+        <p:resizable for="opnl" animate="true" effect="swing" effectDuration="normal" />
+        <p:draggable for="opnl" opacity="0.3" /> 
+    </div>
+
+
+    <!--Informações de rede -->
+    <div id="infosRede">
+        <p:panel id="opn3" header="Status de Redes" style="width:30%; height: 30%">
+            <h:form >
+                <p:dataList id="dtInf" value="#{infoServerBean.mostraRede}" var="rd">
+                    <h:outputText id="inf" value="#{rd.infoRede}" />
+                </p:dataList> 
+                <!-- poll para atualizar a tabela automaticamente  -->
+                <p:poll interval="5" update="dtInf"/>
+            </h:form>
+        </p:panel>
+         <p:resizable for="opn3" animate="true" effect="swing" effectDuration="normal" />
+        <p:draggable for="opn3" opacity="0.3" /> 
+    </div>
+        <!--Informações de Men -->
+    <div id="infosMemor" >
+        <p:panel id="opn-2" header="Memória do Sistema" style="width: 30%">
+            <h:form >
+                <h:outputText value="&emsp;&emsp; Tipo &emsp; Uso &ensp; Livre &ensp; Compartilhado "/>
+                <p:dataList id="dtInfm" value="#{infoServerBean.mostraInfoMen}" var="inf"
+                             emptyMessage="Erro memória não monitorada" >
+                    <h:outputText value="#{inf.infoMen}"/>
+
+                </p:dataList>
+                <!-- poll para atualizar a tabela automaticamente  -->
+                <p:poll interval="5" update="dtInfm"/>
+            </h:form>
+        </p:panel>
+        <p:resizable for="opn-2" animate="true" effect="swing" effectDuration="normal" />
+        <p:draggable for="opn-2" opacity="0.3" /> 
+    </div>
+</html>
+

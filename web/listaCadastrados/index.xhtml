@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../monitAppDefault.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <!-- Listar aplicações cadastradas -->
+        <div id="principalDiv" align="center">    
+            <p:panel id="appDown" header="Aplicações Monitoradas"  toggleSpeed="500" closeSpeed="500" style="margin-bottom:20px; background: transparent" >    
+                <!-- aqui á lista de busca por processos  -->
+                <div id="busca" align="center">
+
+                    <h:panelGrid id="pai2" columns="2" cellspacing="5" cellpadding="1" > 
+                        <h:form id="frmPrincipal" >
+                            <p:dataTable id="tblPrincipal"  var="err" value="#{listaAppCadastradosBean.result}" 
+                                         emptyMessage="Nenhuma Aplicação Cadastrada!"
+                                          >                         
+                                <p:column headerText="Prioridade"  style="text-align: center; width: 120px" >
+                                    <p:row>
+                                        <p:outputLabel value="#{err.prioridade}" /> 
+                                    </p:row>
+                                </p:column >
+                                <p:column headerText="Servidor"  style="text-align: center">
+                                    <p:row>
+                                        <p:outputLabel value="#{err.server}"/> 
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Serviço" style="text-align: center" >
+                                    <p:row>
+                                        <p:outputLabel value="#{err.nomeServico}" />
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Verificação" style="text-align: center;" >
+                                    <p:row>
+                                        <p:outputLabel value="Verifica: #{err.check}s Envia: #{err.info}s" />
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Grupo Email" style="text-align: center;" >
+                                    <p:row>
+                                        <p:outputLabel value="#{err.gpEmail}" />
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Grupo MSISDN" style="text-align: center;" >
+                                    <p:row>
+                                        <p:outputLabel value="#{err.gpWhats}" />
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Comando" style="width: 145px;  text-align: center;" >
+                                    <p:row>
+                                        <h:panelGrid columns="3" bgcolor="silver" style="border: transparent;" >
+                                            <p:column >
+                                                <div align="left">
+                                                    <p:commandButton value="OK" style="background-color: lime; font-size: 10px; width: 40px;"
+                                                                     rendered="#{listaAppCadastradosBean.isOn_off(err.nomeServico) == true}"
+                                                                     action="#{listaAppCadastradosBean.startStopScript(err.nomeServico)}" 
+                                                                     update="tblPrincipal" />
+                                                    <p:commandButton value="OFF" style="background-color: lightgrey;  font-size: 10px; width: 40px;" 
+                                                                     rendered="#{listaAppCadastradosBean.isOn_off(err.nomeServico) == false}" 
+                                                                     action="#{listaAppCadastradosBean.startStopScript(err.nomeServico)}"
+                                                                     update="tblPrincipal" timeout="4" /> 
+                                                    </div>
+                                            </p:column>
+                                            <p:column>
+                                                <div align="right">
+                                                    <p:commandLink  action="#{listaAppCadastradosBean.editarScript(err.nomeServico)}"
+                                                                   update="tblPrincipal">
+                                                        <h:graphicImage value="../icon/edit.png" width="22px" />
+                                                    </p:commandLink>
+                                                    </div>
+                                            </p:column>
+                                            <p:column >
+                                                <div align="left">
+                                                <p:commandLink action="#{listaAppCadastradosBean.setExcluirScript(err.nomeServico)}"
+                                                                   update="tblPrincipal" >
+                                                        <h:graphicImage value="../icon/delete.png" width="18"/>
+                                                    </p:commandLink>
+                                                    </div>
+                                            </p:column>
+                                        </h:panelGrid>
+                                    </p:row>
+                                </p:column>    
+                            </p:dataTable>
+                            <p:poll interval="3" update="tblPrincipal" />
+                        </h:form>
+                    </h:panelGrid > 
+                </div>
+                <!-- fim -->
+
+            </p:panel>     
+        </div>
+        <div align="left" style="width: 200px; cursor: pointer; margin: 0 10px; position: fixed; bottom: 30px" >
+            <h:form>
+                <h3>Server</h3>
+                <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" />
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

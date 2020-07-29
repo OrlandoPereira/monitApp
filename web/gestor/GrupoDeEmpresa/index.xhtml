@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/monitAppDefault.xhtml">
+        <ui:define name="content">
+            <div id="top" align="center">
+                <p:panel id="toggleable" header="Gerenciamento de Usuário" style="margin-bottom:20px">
+                    <h:form id="menu">
+                        <h:panelGrid columns="3" border="2" >
+                                <p:column>
+                                    
+                                </p:column>
+                                <p:column>
+                                    
+                                </p:column>
+                                <p:column>
+                                    <p:dataTable rows="15" var="lista"  
+                                                 emptyMessage="Não existe empresa cadastrada!" 
+                                                 value="#{listGp.grupoEmpresaSelecionada.buscaGpEmpresas}"
+                                                 rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}" 
+                                                 rowIndexVar="rowIx">
+                                        <p:column headerText="Id" >
+                                            <h:outputText value="#{lista.idEmpresa}" />
+                                        </p:column>
+                                        <p:column headerText="Nome" >
+                                            <h:outputText value="#{lista.nomEmpresa}" />
+                                        </p:column>
+
+                                        <p:column headerText="Sigla" >
+                                            <h:outputText value="#{lista.siglaEmpresa}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+
+                            </h:panelGrid>
+                    </h:form>
+                </p:panel>
+
+            </div> 
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/monitAppDefault.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <!-- Listar aplicações com problemas -->
+        <div id="principalDiv" align="center">
+
+            <p:panel id="appDown" header="Dashboard de Falhas"  toggleSpeed="500" closeSpeed="500" styleClass="panelBlack"
+                     style="margin-bottom:20px; background: black; font-weight: bold;" >
+
+                <div align="right" >
+                    <h:panelGrid columns="4" cellspacing="10" border="0"
+                                 style="background: #000;">
+                        <p:column>
+                            <h:outputText value="443 OK" style="color: green;" />
+
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="2 CRI" style="color: red;" />
+      
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="1 WAR" style="color: orange;" />
+
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="0 LOW" style="color: yellow;" />
+                        </p:column>
+   
+                    </h:panelGrid>
+                </div>
+
+                <!-- aqui á lista de busca por processos  -->
+                <div id="busca" align="center">
+                    <h:panelGrid id="pai2" columns="2" cellspacing="5" cellpadding="1" > 
+                        <h:form id="frmPrincipal" >
+                            <p:dataTable id="tblPrincipal" value="#{monitora.result}"  var="err" stickyHeader="true" 
+                                         emptyMessage="Nenhuma Aplicação com Problema" reflow="true"
+                                         rowStyleClass="#{err.prioridade eq 'a[CRITICAL]' ? 'vermelho' : 'laranja'}" 
+                                         rowIndexVar="rowIx" >                         
+                                <p:column headerText="Prioridade" style="text-align: center;" styleClass="panelBlack">
+                                    <p:row>
+                                        <p:graphicImage id="alerta"  url="/icon/#{err.prioridade}.png" /> 
+                                    </p:row>
+                                </p:column >
+                                <p:column headerText="Servidor" style="text-align: center;">
+                                    <p:row>
+                                        <p:outputLabel value="#{err.servidor}" style="color: black;"/> 
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Serviço" style="text-align: center;" >
+                                    <p:row>
+                                        <p:outputLabel value="#{err.processo}" style="color: black;"/>
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Erro" style="text-align: center;" >
+                                    <p:row>
+                                        <p:commandButton value="#{err.erroGerado}" style="background-color: transparent;
+                                                         font-size: 13px; background: white; border: white;
+                                                         text-align: left; height: 60px;"
+                                                         onclick="PF('logErro').show();" type="button"/>
+                                        <p:dialog header="Log erro" widgetVar="logErro" modal="true" showEffect="explode" hideEffect="bounce" height="100">
+                                            <h:outputText value="#{err.erroGerado}" />
+                                        </p:dialog>
+                                    </p:row>
+                                </p:column >
+                                <p:column headerText="Iniciado" style="text-align: center;" >
+                                    <p:row>
+                                        <p:outputLabel value="#{err.hdDown}" style="color: black;" />
+                                    </p:row>
+                                </p:column>
+                                <p:column headerText="Reiniciar" style="text-align: center;" >
+                                    <p:row>
+                                        <p:commandButton value="Now" 
+                                                         actionListener="#{listaAppCadastradosBean.startApp(err.prioridade, err.servidor, err.processo, err.hdDown)}"
+                                                         timeout="5" />
+                                    </p:row>
+                                </p:column>
+                            </p:dataTable>
+                            <!-- poll para atualizar a tabela automaticamente  -->
+                            <p:poll interval="3" update="tblPrincipal" />
+                        </h:form>          
+                    </h:panelGrid > 
+                </div>
+                <!-- fim -->
+            </p:panel>     
+
+
+            <div id="GraficosStatus" align="center">
+                <p:panel id="graf" header="Gráficos de Status"  toggleSpeed="500" closeSpeed="500" 
+                         style="margin-bottom:20px; background: black; text-align: center"
+                         styleClass="panelBlack">
+                    <div id="mostragraf" align="center" style="background-color: black; font-weight: bold;">
+
+                        <h:form id="frmSegundo" >
+                            <h:panelGrid columns="2" border="0" style="max-width: 100%; min-width: 600px">
+                                <p:column >
+                                    <div align="center" >
+                                        <p:chart type="line" model="#{monitora.areaModel}" 
+                                                 style="height:300px; min-width: 400px;max-width: 100%; 
+                                                 color: orange;" />
+                                    </div>
+                                </p:column>
+                                <p:column >
+                                    <div align="right" >
+                                        <p:chart type="pie" model="#{monitora.pieModel2}" 
+                                                 style="height:300px; min-width: 280px;max-width: 100%;
+                                                 color: orange;" />
+                                    </div>
+                                </p:column>
+                            </h:panelGrid>
+                        </h:form>
+
+                    </div>
+                </p:panel>
+            </div>
+        </div> 
+        <!-- Relógio do  servidor -->
+        <div align="left" style="width: 200px; cursor: pointer; margin: 0 10px; position: fixed; bottom: 30px" >
+            <h:form>
+                <h3 style="color: orange;">Server</h3>
+                <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" />
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

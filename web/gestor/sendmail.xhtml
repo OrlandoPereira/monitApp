@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/monitAppDefault.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div id="principalDiv" align="justify">    
+            <p:panel id="appDown" header="Envio de Email Informativos" toggleSpeed="500" closeSpeed="500" style="margin-bottom:20px; background: transparent" >    
+                <!-- aqui á lista de busca por processos  -->
+                <div id="enviaEmail" align="center">
+                    <h:panelGrid id="pai2" columns="2" cellspacing="5" cellpadding="1"
+                                 style="background-color: whitesmoke;"> 
+                        <h:form id="frmPrincipal" >
+                            <h:panelGrid columns="2">
+                                <p:column >
+                                    <p:outputLabel value="Para: "/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{sendMailBean.para}" size="69" required="true"
+                                                 requiredMessage="Sem destinatario"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Assunto: "/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{sendMailBean.assunto}" size="69" required="true"
+                                                 requiredMessage="Sem assunto"/>
+                                </p:column>
+                                <p:column>
+                                </p:column>
+                                <p:column>
+                                    <p:editor id="editor" widgetVar="editorWidget" value="#{sendMailBean.mensagem}" width="600" height="400" />
+                                    <div align="right">
+                                        <h:panelGrid columns="3" style="margin-top: 10px">
+                                            <p:commandButton value="Enviar" actionListener="#{sendMailBean.enviarEmail()}" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-mail-closed" />
+                                            <p:spacer width="15" height="10" /> 
+                                            <p:commandButton value="Limpar" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-circle-close" />
+                                        </h:panelGrid>
+                                    </div>
+                                    <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                                        <h:outputText id="display" value="#{sendMailBean.mensagem}" escape="false" />
+                                    </p:dialog>
+                                </p:column>
+                            </h:panelGrid>
+                        </h:form>
+                        <p:scrollPanel mode="native" style="width:250px;height:525px">
+                            <h:panelGrid  columns="2"> 
+                                <p:selectBooleanCheckbox  />
+                                <h:outputText value="casa" /> 
+                                <p:selectBooleanCheckbox  />
+ 
+                            </h:panelGrid>
+                        </p:scrollPanel>
+                    </h:panelGrid>
+                </div>
+            </p:panel>
+        </div>
+    </ui:define>
+</ui:composition>

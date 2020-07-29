@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/monitAppDefault.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <div id="top" align="center">
+            <h:form id="Conf">
+                <p:panel id="toggleable" header="Inserir dados para monitorar" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="500" style="margin-bottom:20px">
+                    <h:form id="CadApp" > 
+                        <div id="campos" align="center">
+                            <h:panelGrid id="pai" columns="1" border="0" cellspacing="10" cellpadding="1" > 
+                                <p:column>
+                                    <h:outputLabel   value="&ensp;Nome: "/>
+                                    <p:inputText id="app" maxlength="70" size="27" value="#{confApp.nomeApp}" required="true"
+                                                 requiredMessage="Nome não preenchido!"/> 
+                                    <p:spacer height="30px" width="30px"/>
+                                    <h:outputLabel  value=" Checar: "/>
+                                    <p:inputText id="timeApp" maxlength="5"  size="6"  value="#{confApp.tempoCheck}" required="true"
+                                                 requiredMessage="Checar não preenchido"/>
+                                    <h:outputLabel value=" Alerta: "/>
+                                    <p:inputText id="alert" maxlength="5" size="5" value="#{confApp.tempoAlert}" required="true" 	
+                                                 requiredMessage="Alerta não preenchido"/>
+                                </p:column>
+                                <p:column>
+                                    <h:panelGrid columns="3" border="0" cellspacing="5" cellpadding="1"> 
+                                        <h:panelGrid columns="2" border="0">
+                                            <h:outputLabel   value="&ensp;Tipo: " /> 
+                                            <p:selectOneMenu value="#{confApp.prioridade}" id="tipoAlerta"  style="width:205px" rendered="true" 
+                                                             requiredMessage="Prioridade não preenchido">
+                                                <f:selectItem itemLabel="Selecione ..."   noSelectionOption="true" />
+                                                <f:selectItem itemLabel="Critical" itemDescription="Prioridade de alerta Alta" itemValue="CRITICAL" />
+                                                <f:selectItem itemLabel="Warning"  itemDescription="Prioridade de alerta Média" itemValue="WARNING"/>
+                                                <f:selectItem itemLabel="Low"  itemDescription="Prioridade de alerta Baixa" itemValue="LOW"/>
+                                            </p:selectOneMenu> 
+                                        </h:panelGrid>
+                                         <p:spacer height="30px" width="30px"/>
+                                        <h:panelGrid columns="3" border="0">
+                                            <h:outputLabel   value="&ensp;&ensp;&ensp;Servidor: " > </h:outputLabel>
+                                           <!-- <p:inputText value="#{confApp.server}"/> --> 
+                                                 <p:selectOneMenu   style="width:205px" >
+                                                
+                                                <f:selectItem itemLabel="Asterisk" itemDescription="Prioridade de alerta Alta" itemValue="CRITICAL" />
+                                                
+                                            </p:selectOneMenu> 
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <div align="center">
+                                        <h:panelGrid columns="3" border="0"  cellspacing="5" cellpadding="1"> 
+                                            <p:panel header="Grupo para E-mails" style="margin-bottom:20px;width:240px;height:260px">
+                                                <p:scrollPanel mode="native" style="width:220px;height:220px">             
+                                                    <p:selectManyCheckbox  value="#{listarGrupos.grupoEmailSelect}" columns="2"
+                                                                                   layout="grid" requiredMessage="Deve escolher pelo menos um Grupo de cada">
+                                                        <f:selectItems  value="#{listarGrupos.grupoEmailSelecionada.buscaGpEmails}" 
+                                                                        var="list" itemLabel="#{list.nomGrupoEmail}" itemValue="#{list.idGrupoEmail}" />
+                                                            </p:selectManyCheckbox>                          
+                                                </p:scrollPanel>              
+                                            </p:panel>
+                                            <p:spacer height="50px"/>
+                                            <p:panel header="Grupo para Mensagem" style="margin-bottom:20px;width:240px;height:260px">
+                                                <p:scrollPanel mode="native" style="width:220px;height:220px">
+                                                    <p:selectManyCheckbox   value="#{listarGrupos.grupoCelularSelect}" columns="2"
+                                                                           layout="grid" requiredMessage="Deve escolher pelo menos um Grupo de cada">
+                                                        <f:selectItems value="#{listarGrupos.grupoCelularSelecionada.buscaGpCelulars}" 
+                                                                       var="list" itemLabel="#{list.nomGrupoCel}" itemValue="#{list.idGrupoCel}" />
+                                                        
+                                                    </p:selectManyCheckbox> 
+                                                </p:scrollPanel>
+                                            </p:panel>
+                                        </h:panelGrid>
+                                    </div>
+                                </p:column>
+                            </h:panelGrid>
+                        </div>
+                        <div id="botoes" align="right">
+                            <h:panelGrid columns="2" cellspacing="5" cellpadding="3">                    
+                                <p:commandButton action="#{confApp.setAplicacao(appx, tempoCheckx, tempoAlertx,
+                                                            prioridadex,serverx,idGrupoEmail,idGpCel)}" 
+                                                 value="Cadastrar" update="CadApp" ajax="CadApp" timeout="3" /> 
+                                <p:commandButton immediate="true" type="reset" value="Limpar" 
+                                                 update="CadApp" ajax="CadApp" />
+                            </h:panelGrid> 
+                        </div>
+
+                    </h:form>
+                </p:panel>
+            </h:form>
+        </div>
+        <!-- Listar aplicações que poderam ser cadastradas -->
+        <div id="baixo" align="center">
+            <h:form>
+                <p:panel id="ListaAplicacao" header="Listar Aplicações em Processo&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"  toggleSpeed="500" closeSpeed="500" style="margin-bottom:20px">
+
+                    <h:form id="ListApp"> 
+                        <!-- aqui á lista de busca por processos  -->
+                        <div id="busca" align="center">
+                            <h:panelGrid id="pai2" columns="2" cellspacing="5" cellpadding="1" > 
+
+                                <h:form id="frmPrincipal" >
+
+                                    <h:panelGrid columns="4" cellspacing="5" cellpadding="1" border="0">
+                                        <p:column>
+                                            <p:row>
+                                                <p:outputLabel for="buscarr"   value="Aplicação:"/> 
+                                                <p:inputText id="buscarr" maxlength="70" value="#{buscar}" required="true"
+                                                             requiredMessage="Erro campo não preechido!" size="27" onfocus="this.value = '';">
+                                                </p:inputText>   
+                                            </p:row>
+                                        </p:column>
+                                        <h:panelGrid columns="1" border="0" cellspacing="5" cellpadding="1">
+                                            <h:column>
+                                                <h:panelGrid columns="2" border="0">
+                                                    <h:outputLabel   value="Servidor: " > </h:outputLabel>
+                                                    <p:selectOneMenu value="#{servidorx}" id="server"  style="width:205px" rendered="true" 
+                                                                     requiredMessage="Servidor não preenchido">
+                                                        <f:selectItem itemLabel="Selecione ..."   noSelectionOption="true" />
+                                                        <f:selectItem itemLabel="Galactus" itemDescription="Prioridade de alerta Alta" itemValue="CRITICAL" />
+                                                        <f:selectItem itemLabel="Asterisk"  itemDescription="Prioridade de alerta Média" itemValue="WARNING"/>
+                                                        <f:selectItem itemLabel="Obelisk"  itemDescription="Prioridade de alerta Baixa" itemValue="LOW"/>
+                                                    </p:selectOneMenu> 
+                                                </h:panelGrid>
+                                            </h:column>
+                                        </h:panelGrid>
+                                        <p:column width="100">
+                                            <p:row>
+                                                <h:panelGrid width="100%" columns="1" cellspacing="5" cellpadding="3" >     
+                                                    <p:commandButton id="txtbusca" value="Buscar" update="tblPrincipal" 
+                                                                     styleClass="alinhar" style="text-align: right" />
+                                                </h:panelGrid>
+                                            </p:row>
+                                        </p:column>
+                                        <p:column>
+                                            <p:row>
+                                                <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:10px">
+                                                    <f:facet name="header">
+                                                        <p:messages id="msgs" />
+                                                    </f:facet>
+                                                </h:panelGrid>     
+                                            </p:row>
+                                        </p:column>
+                                        <p:column>
+                                            <p:row>
+                                                <p:outputLabel value="No campo de busca pode ser utilizado para qualquer tipo de busca da tabela."
+                                                               style="color: darkgray; font-size: 10px"/> 
+                                            </p:row>
+                                        </p:column>
+
+                                    </h:panelGrid>
+                                    <p:dataTable id="tblPrincipal"  value="#{listarAppsBean.getExecuteCommand(buscar)}" var="lista"  
+                                                 emptyMessage="Buscar por processos rodando no S.O."  scrollable="true" scrollHeight="300" 
+                                                 scrollWidth="80%" draggableColumns="true" 
+                                                 rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}" 
+                                                 rowIndexVar="rowIx" >
+                                        <!-- rowStyleClass para diferenciar as linhas da tabela com css -->
+                                        <p:column  headerText="Usuário" footerText="" width="10%" >
+                                            <p:row>
+                                                <h:outputText value="#{lista.user}" />
+                                            </p:row>
+                                        </p:column>
+                                        <p:column headerText="PID" footerText="" width="7%" >
+                                            <p:row>
+                                                <h:outputText value="#{lista.pid}" />
+                                            </p:row>
+                                        </p:column>
+                                        <p:column headerText="CPU" footerText="" width="7%" >
+                                            <p:row>
+                                                <h:outputText value="#{lista.cpu}" />
+                                            </p:row>
+                                        </p:column>
+                                        <p:column headerText="Memória" footerText="" width="7%" >
+                                            <p:row>
+                                                <h:outputText value="#{lista.men}" />
+                                            </p:row>
+                                        </p:column>
+                                        <p:column headerText="Iniciado" footerText="" width="7%" >
+                                            <p:row>
+                                                <h:outputText value="#{lista.start}" />
+                                            </p:row>
+                                        </p:column>
+                                        <p:column headerText="Comando" footerText="" width="20%" >
+                                            <p:row >
+                                                <h:outputText value="#{lista.comando}" />
+                                            </p:row>
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </h:form>
+                            </h:panelGrid > 
+                        </div>
+                        <!-- fim -->
+
+                    </h:form>
+                </p:panel>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

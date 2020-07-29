@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view contentType="text/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>MonitApp</title>
+                   <style>
+                .ui-stack { position: fixed; bottom: 5px; right: 7%; }
+                .ui-stack > img { position: relative; cursor: pointer; padding-top: 35px; z-index: 2; width: 70px;} /* icone do stack */
+                .ui-stack ul { list-style: none; position: absolute; top: 5px; cursor: pointer; z-index: 1; margin: 0; padding: 0;}
+                .ui-stack ul li { position: absolute; }
+                .ui-stack ul li img { border: 0; } /* icone do submenu */
+                .ui-stack ul li span { display: none; }
+                .ui-stack .openStack li span {
+                    font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+                    display:block;
+                    height: 14px;
+                    position:absolute;
+                    top: 17px;
+                    right: 60px;
+                    line-height: 14px;
+                    border: 0;
+                    background-color:#000;
+                    padding: 3px 10px;
+                    border-radius: 10px;
+                    -webkit-border-radius: 10px;
+                    -moz-border-radius: 10px;
+                    color: #fcfcfc;
+                    text-align: center;
+                    text-shadow: #000 1px 1px 1px;
+                    opacity: .85;
+                    filter: alpha(opacity = 85);
+                }
+
+                /* IE Fixes */
+                .ui-stack { _position: absolute; }
+                .ui-stack ul { _z-index:-1; _top:-15px; }
+                .ui-stack ul li { *right:5px; }
+
+
+                /* bottom */
+                .ui-dock-bottom {
+                    width: 100%;
+                    bottom: 5px;
+                    position: absolute;
+                    left: 0px;
+                }
+                .ui-dock-container-bottom {
+                    position: fixed;
+                    height: 50px;
+                    padding-left: 20px;
+                    background-color: transparent;
+
+                }
+                
+                
+                   </style>
+        <script type="text/javascript"  language="javascript">
+<!--
+function aumenta(obj){
+obj.height=obj.height*1.1;
+   obj.width=obj.width*1.1;
+}
+
+function diminui(obj){
+   obj.height=obj.height/1.1;
+   obj.width=obj.width/1.1;
+}
+function proxUrl(){
+   windows.location = "/gestor/GrupoDeUsuario/index.jsf";
+}
+//-->
+        </script>
+    </h:head>
+
+    <h:body>
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <div align="left">
+                    <h:form>
+                        <p:stack icon="/icon/stack.png" >   
+                            <p:menuitem value="Mails" icon="/icon/maill.png"  url="/gestor/sendmail.jsf" />
+                            <p:menuitem value="Gerenciamento" icon="/icon/critical.png" url="/gestor/"/>
+                            <p:menuitem value="Relatório" icon="/icon/retall.png" url="/gestor/sendmail.xhtml" />
+                            <p:menuitem value="Cadastrar App" icon="/icon/cad.png" url="/cadastrarApp/"/>                             
+                            <p:menuitem value="Monitorados" icon="/icon/monit.png" url="/listaCadastrados/"/>
+                            <p:menuitem value="Status" icon="/icon/status.png" url="/sistema/statusMonitApp/" />
+                            <p:menuitem value="Inicial" icon="/icon/inic.png" url="/"/>
+                        </p:stack>
+                    </h:form>
+                </div>
+            </ui:insert>
+        </div>
+
+    </h:body>
+    </f:view>
+</html>
